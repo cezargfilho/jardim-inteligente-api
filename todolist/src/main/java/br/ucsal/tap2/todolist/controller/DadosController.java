@@ -13,41 +13,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ucsal.tap2.todolist.model.Atividade;
-import br.ucsal.tap2.todolist.model.AtividadeForm;
-import br.ucsal.tap2.todolist.repository.AtividadeRepository;
+import br.ucsal.tap2.todolist.model.Dados;
+import br.ucsal.tap2.todolist.model.DadosForm;
+import br.ucsal.tap2.todolist.repository.DadosRepository;
 
 @RestController
-@RequestMapping("/")
-public class AtividadeController {
+@RequestMapping("/dados")
+public class DadosController {
 
 	@Autowired
-	private AtividadeRepository repository;
+	private DadosRepository repository;
 
-	@GetMapping("/listar")
-	public List<Atividade> listar() {
+	@GetMapping("/list")
+	public List<Dados> listar() {
 		return repository.findAll();
 	}
 
-	@PostMapping("/cadastrar")
-	public ResponseEntity<Atividade> cadastrar(@RequestBody AtividadeForm form) {
+	@PostMapping("/create")
+	public ResponseEntity<Dados> cadastrar(@RequestBody DadosForm form) {
 		if (form == null) {
 			return ResponseEntity.badRequest().build();
 		}
-		Atividade atividade = new Atividade(form);
+		Dados atividade = new Dados(form);
 		repository.save(atividade);
 		return ResponseEntity.ok(atividade);
 	}
 
-	@DeleteMapping("/deletar/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> remover(@PathVariable Long id) {
-		Optional<Atividade> optional = repository.findById(id);
+		Optional<Dados> optional = repository.findById(id);
 		if (optional.isPresent()) {
 			repository.deleteById(id);
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
-
 	}
 
 }
