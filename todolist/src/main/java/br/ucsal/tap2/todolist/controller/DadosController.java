@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,11 +25,13 @@ public class DadosController {
 	@Autowired
 	private DadosRepository repository;
 
+	@CrossOrigin
 	@GetMapping("/list")
 	public List<Dados> listar() {
 		return repository.findAll();
 	}
 
+	@CrossOrigin
 	@PostMapping("/create")
 	public ResponseEntity<Dados> cadastrar(@RequestBody DadosForm form) {
 		if (form == null) {
@@ -39,6 +42,7 @@ public class DadosController {
 		return ResponseEntity.ok(atividade);
 	}
 
+	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> remover(@PathVariable Long id) {
 		Optional<Dados> optional = repository.findById(id);
