@@ -10,7 +10,7 @@ public class DadosForm {
 
 	private String data; // dd/mm/aaaa
 
-	private String hora; // mm:ss
+	private String hora; // hh:mm
 
 	private Integer tempoIrrigacao; // tempo em segundos
 

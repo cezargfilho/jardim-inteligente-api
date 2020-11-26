@@ -50,6 +50,7 @@ public class Dados {
 		this.radiacaoSolar = form.getRadiacaoSolar();
 		this.data = form.getData();
 		this.hora = form.getHora();
+		this.tempoIrrigacao = form.getTempoIrrigacao();
 	}
 
 	public Integer getUmidade() {
