@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +41,22 @@ public class DadosController {
 		Dados atividade = new Dados(form);
 		repository.save(atividade);
 		return ResponseEntity.ok(atividade);
+	}
+
+	@CrossOrigin
+	@PostMapping("/create/list")
+	public ResponseEntity<?> cadastrar(
+			@RequestBody List<DadosForm> forms,
+			@RequestHeader("key") String key) {
+		if (forms == null|| key == null || !key.equals("etmtNSgn") ) {
+			return ResponseEntity.badRequest().build();
+		}
+		Dados dado;
+		for (DadosForm dadosForm : forms) {
+			dado = new Dados(dadosForm, key);
+			repository.save(dado);
+		}
+		return ResponseEntity.ok().build();
 	}
 
 	@CrossOrigin

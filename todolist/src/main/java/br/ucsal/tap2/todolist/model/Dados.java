@@ -1,10 +1,15 @@
 package br.ucsal.tap2.todolist.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import br.ucsal.tap2.todolist.cripto.AES;
 
 @Entity
 public class Dados {
@@ -45,12 +50,25 @@ public class Dados {
 	}
 
 	public Dados(DadosForm form) {
-		this.umidade = form.getUmidade();
-		this.temperatura = form.getTemperatura();
-		this.radiacaoSolar = form.getRadiacaoSolar();
+		this.umidade = Integer.parseInt(form.getUmidade());
+		this.temperatura = Double.parseDouble(form.getTemperatura());
+		this.radiacaoSolar = Integer.parseInt(form.getRadiacaoSolar());
 		this.data = form.getData();
 		this.hora = form.getHora();
-		this.tempoIrrigacao = form.getTempoIrrigacao();
+		this.tempoIrrigacao = Integer.parseInt(form.getTempoIrrigacao());
+	}
+
+	public Dados(DadosForm form, String secretKey) {
+		this.umidade = Integer.parseInt(AES.decrypt(form.getUmidade(), secretKey));
+		this.temperatura = Double.parseDouble(AES.decrypt(form.getTemperatura(), secretKey));
+		this.radiacaoSolar = Integer.parseInt(AES.decrypt(form.getRadiacaoSolar(), secretKey));
+
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDateTime now = LocalDateTime.now();
+		this.data = dtf.format(now);
+		DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+		this.hora = dtf2.format(now);
+		this.tempoIrrigacao = Integer.parseInt(AES.decrypt(form.getTempoIrrigacao(), secretKey));
 	}
 
 	public Integer getUmidade() {

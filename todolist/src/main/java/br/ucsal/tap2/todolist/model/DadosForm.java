@@ -2,27 +2,27 @@ package br.ucsal.tap2.todolist.model;
 
 public class DadosForm {
 
-	private Integer umidade;
+	private String umidade;
 
-	private Double temperatura;
+	private String temperatura;
 
-	private Integer radiacaoSolar;
+	private String radiacaoSolar;
 
 	private String data; // dd/mm/aaaa
 
 	private String hora; // hh:mm
 
-	private Integer tempoIrrigacao; // tempo em segundos
+	private String tempoIrrigacao; // tempo em segundos
 
-	public Integer getUmidade() {
+	public String getUmidade() {
 		return umidade;
 	}
 
-	public Double getTemperatura() {
+	public String getTemperatura() {
 		return temperatura;
 	}
 
-	public Integer getRadiacaoSolar() {
+	public String getRadiacaoSolar() {
 		return radiacaoSolar;
 	}
 
@@ -34,7 +34,7 @@ public class DadosForm {
 		return hora;
 	}
 
-	public Integer getTempoIrrigacao() {
+	public String getTempoIrrigacao() {
 		return tempoIrrigacao;
 	}
 
