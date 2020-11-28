@@ -58,7 +58,7 @@ public class Dados {
 		this.tempoIrrigacao = Integer.parseInt(form.getTempoIrrigacao());
 	}
 
-	public Dados(DadosForm form, String secretKey) {
+	public Dados(DadosFormCript form, String secretKey) {
 		this.umidade = Integer.parseInt(AES.decrypt(form.getUmidade(), secretKey));
 		this.temperatura = Double.parseDouble(AES.decrypt(form.getTemperatura(), secretKey));
 		this.radiacaoSolar = Integer.parseInt(AES.decrypt(form.getRadiacaoSolar(), secretKey));

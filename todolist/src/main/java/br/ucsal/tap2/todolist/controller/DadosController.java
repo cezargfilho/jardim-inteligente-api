@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ucsal.tap2.todolist.model.Dados;
 import br.ucsal.tap2.todolist.model.DadosForm;
+import br.ucsal.tap2.todolist.model.DadosFormCript;
 import br.ucsal.tap2.todolist.repository.DadosRepository;
 
 @RestController
@@ -46,13 +47,13 @@ public class DadosController {
 	@CrossOrigin
 	@PostMapping("/create/list")
 	public ResponseEntity<?> cadastrar(
-			@RequestBody List<DadosForm> forms,
+			@RequestBody List<DadosFormCript> forms,
 			@RequestHeader("key") String key) {
 		if (forms == null|| key == null || !key.equals("etmtNSgn") ) {
 			return ResponseEntity.badRequest().build();
 		}
 		Dados dado;
-		for (DadosForm dadosForm : forms) {
+		for (DadosFormCript dadosForm : forms) {
 			dado = new Dados(dadosForm, key);
 			repository.save(dado);
 		}
